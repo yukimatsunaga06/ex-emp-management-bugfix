@@ -20,7 +20,7 @@ import jp.co.sample.emp_management.service.AdministratorService;
 /**
  * 管理者情報を操作するコントローラー.
  * 
- * @author matsunagayuki
+ * @author igamasayuki
  *
  */
 @Controller
@@ -82,7 +82,7 @@ public class AdministratorController {
 		// フォームからドメインにプロパティ値をコピー
 		BeanUtils.copyProperties(form, administrator);
 		administratorService.insert(administrator);
-		return "administrator/login"; //変更前"employee/list"
+		return "redirect:/"; //変更前"employee/list"
 	}
 
 	/////////////////////////////////////////////////////

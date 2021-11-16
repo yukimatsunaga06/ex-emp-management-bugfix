@@ -8,7 +8,7 @@ import javax.validation.constraints.Size;
 /**
  * 管理者情報登録時に使用するフォーム.
  * 
- * @author matsunagayuki
+ * @author igamasayuki
  * 
  */
 public class InsertAdministratorForm {
