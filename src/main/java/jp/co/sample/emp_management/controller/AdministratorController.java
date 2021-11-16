@@ -80,7 +80,7 @@ public class AdministratorController {
 		}
 		String mail=form.getMailAddress();
 		if(null!= administratorService.findByMailAddress(mail) ) {
-			model.addAttribute("mail","パスワードが重複してます");
+			model.addAttribute("mail","パスワードが重複してます"); //mailキーでメッセージ表示
 			
 			 return  toInsert();
 		}
@@ -93,6 +93,7 @@ public class AdministratorController {
 	
 		return "redirect:/"; //変更前"employee/list"
 	}
+	
 	
 	
 
