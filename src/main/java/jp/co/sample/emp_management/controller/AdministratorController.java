@@ -84,7 +84,13 @@ public class AdministratorController {
 			
 			 return  toInsert();
 		}
-		
+		String password=form.getPassword();
+		String passwordcheck=form.getPasswordcheck();
+		if(!passwordcheck.equals(password)) { //！文字列.equals(文字列）
+			model.addAttribute("passwordcheck","パスワードが間違っています"); //mailキーでメッセージ表示
+			
+			 return  toInsert();
+		}
 		
 		Administrator administrator = new Administrator();
 		// フォームからドメインにプロパティ値をコピー

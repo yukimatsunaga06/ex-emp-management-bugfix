@@ -24,6 +24,11 @@ public class InsertAdministratorForm {
 	@Pattern(regexp="^[A-Za-z0-9]+$",message="英数字で入力してください")
 	@Size(min=8,message="パスワードは8文字以上で記載してください")
 	private String password;
+	
+	/** 確認パスワード */
+	
+	private String passwordcheck;
+
 
 	/**
 	 * @return the name
@@ -67,10 +72,22 @@ public class InsertAdministratorForm {
 		this.password = password;
 	}
 	
+	
+	
+	
+	
+	public String getPasswordcheck() {
+		return passwordcheck;
+	}
+
+	public void setPasswordcheck(String passwordcheck) {
+		this.passwordcheck = passwordcheck;
+	}
+
 	@Override
 	public String toString() {
 		return "InsertAdministratorForm [name=" + name + ", mailAddress=" + mailAddress + ", password=" + password
-				+ "]";
+				+ ", passwordcheck=" + passwordcheck + "]";
 	}
 	
 }
