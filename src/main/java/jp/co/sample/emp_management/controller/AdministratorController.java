@@ -61,7 +61,7 @@ public class AdministratorController {
 	 */
 	@RequestMapping("/toInsert")
 	public String toInsert() {
-		return "administrator/insert";
+		return "administrator/insert"; 
 	}
 
 	/**
@@ -77,7 +77,7 @@ public class AdministratorController {
 		// フォームからドメインにプロパティ値をコピー
 		BeanUtils.copyProperties(form, administrator);
 		administratorService.insert(administrator);
-		return "employee/list";
+		return "administrator/login"; //変更前"employee/list"
 	}
 
 	/////////////////////////////////////////////////////
@@ -109,7 +109,7 @@ public class AdministratorController {
 			model.addAttribute("errorMessage", "メールアドレスまたはパスワードが不正です。");
 			return toLogin();
 		}
-		return "forward:/employee/showList";
+		return "forward:/employee/showList"; 
 	}
 	
 	/////////////////////////////////////////////////////
