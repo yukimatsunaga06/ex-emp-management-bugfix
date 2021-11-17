@@ -45,8 +45,7 @@ public class EmployeeRepository {
 	@Autowired
 	private NamedParameterJdbcTemplate template;
 	
-	@Autowired
-	private NamedParameterJdbcTemplate jdbcTemplate;
+	
 
 	/**
 	 * 従業員一覧情報を入社日順で取得します.
@@ -86,7 +85,7 @@ public class EmployeeRepository {
 		sql.append(" FROM employees ");
 		sql.append(" WHERE name like :name ORDER BY hire_date DESC"); //%表示で名前の前後ろを曖昧検索出来る likeに近い
 		SqlParameterSource param=new MapSqlParameterSource().addValue("name",'%'+name+'%');//formで貰ってきた文字列を％で先に曖昧検索
-		return jdbcTemplate.query(sql.toString(),param, EMPLOYEE_ROW_MAPPER);
+		return template.query(sql.toString(),param, EMPLOYEE_ROW_MAPPER);
 		 
 	}
 	
