@@ -94,7 +94,7 @@
 										<label th:if="${#fields.hasErrors('passwordcheck')}" th:errors="*{passwordcheck}" class="error-messages">
 											確認パスワードを入力してください
 										</label>
-										<span th:text="${passwordcheck}" style="color:red"></span>
+										<span th:text="${passworderror}" style="color:red"></span>
 										<input type="password" name="passwordcheck" id="passwordcheck" class="form-control" placeholder="password"
 											 th:field="*{passwordcheck}" th:errorclass="error-input" value="xxxxxxxx">
 										

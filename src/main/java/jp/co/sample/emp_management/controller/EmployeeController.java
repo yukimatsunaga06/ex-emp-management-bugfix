@@ -10,6 +10,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+
 import jp.co.sample.emp_management.domain.Employee;
 import jp.co.sample.emp_management.form.UpdateEmployeeForm;
 import jp.co.sample.emp_management.service.EmployeeService;
@@ -27,6 +28,8 @@ public class EmployeeController {
 	@Autowired
 	private EmployeeService employeeService;
 	
+	
+	
 	/**
 	 * 使用するフォームオブジェクトをリクエストスコープに格納する.
 	 * 
@@ -36,6 +39,7 @@ public class EmployeeController {
 	public UpdateEmployeeForm setUpForm() {
 		return new UpdateEmployeeForm();
 	}
+
 
 	/////////////////////////////////////////////////////
 	// ユースケース：従業員一覧を表示する
@@ -52,6 +56,43 @@ public class EmployeeController {
 		model.addAttribute("employeeList", employeeList);
 		return "employee/list";
 	}
+	
+	
+	
+	@RequestMapping("/search")
+	public String search(String name,Model model) {
+		
+		List<Employee> employeeList = null;
+		
+		if ("".equals(name)) { // 検索ワードが空文字だった時
+			employeeList = employeeService.showList(); // 全件検索
+		} else { // 検索ワードに何か文字が入っていた時
+			employeeList = employeeService.findByLikeName(name); // 曖昧検索
+			
+			if (employeeList.isEmpty()) { // 曖昧検索の結果が０件だった時
+				employeeList = employeeService.showList(); // 全件検索
+				model.addAttribute("noName", "該当がありません");
+			}
+		}
+			
+//		List<Employee> employeeList = employeeService.findByLikeName(name);
+//		if(employeeList.isEmpty()) {
+//			employeeList=employeeService.showList();
+//			model.addAttribute("employeeList", employeeList);
+//			return "employee/list";
+//		}
+//		
+//		if(employeeList.size()==0) {
+//			employeeList=employeeService.showList();
+//			model.addAttribute("employeeList", employeeList);
+//			model.addAttribute("noName", "該当がありません");
+//			return "employee/list";
+//		}
+		model.addAttribute("employeeList", employeeList);
+		return "employee/list"; //曖昧検索
+	}
+	
+
 
 	
 	/////////////////////////////////////////////////////

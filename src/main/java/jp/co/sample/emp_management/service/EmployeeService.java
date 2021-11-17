@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+
 import jp.co.sample.emp_management.domain.Employee;
 import jp.co.sample.emp_management.repository.EmployeeRepository;
 
@@ -43,6 +44,18 @@ public class EmployeeService {
 		Employee employee = employeeRepository.load(id);
 		return employee;
 	}
+	/**
+	 * 曖昧検索 空白の場合全件検索
+	 */
+	
+	public List<Employee> findByLikeName(String name) {
+		List<Employee> employeeList=employeeRepository.findByLikeName(name);
+		return employeeList;
+		
+	}
+	
+
+
 	
 	/**
 	 * 従業員情報を更新します.

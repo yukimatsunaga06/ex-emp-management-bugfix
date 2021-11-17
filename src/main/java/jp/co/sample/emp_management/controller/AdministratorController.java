@@ -73,21 +73,21 @@ public class AdministratorController {
 	 *            管理者情報用フォーム
 	 * @return ログイン画面へリダイレクト
 	 */
-	@RequestMapping("/insert")
+	@RequestMapping("/insert") //@Validatedだと引数BindingResult result
 	public String insert(@Validated InsertAdministratorForm form,BindingResult result,RedirectAttributes redirectAttributes,Model model) { //insertが教科書で言うcreateと同じ
 		if(result.hasErrors()) {
 			return toInsert();
 		}
 		String mail=form.getMailAddress();
 		if(null!= administratorService.findByMailAddress(mail) ) {
-			model.addAttribute("mail","パスワードが重複してます"); //mailキーでメッセージ表示
+			model.addAttribute("mail","メールアドレスが重複してます"); //mailキーでメッセージ表示
 			
 			 return  toInsert();
 		}
 		String password=form.getPassword();
 		String passwordcheck=form.getPasswordcheck();
 		if(!passwordcheck.equals(password)) { //！文字列.equals(文字列）
-			model.addAttribute("passwordcheck","パスワードが間違っています"); //mailキーでメッセージ表示
+			model.addAttribute("passworderror","パスワードが間違っています"); //キーでメッセージ表示
 			
 			 return  toInsert();
 		}
@@ -126,7 +126,7 @@ public class AdministratorController {
 	 * @return ログイン後の従業員一覧画面
 	 */
 	@RequestMapping("/login")
-	public String login(LoginForm form, BindingResult result, Model model) {
+	public String login(LoginForm form, BindingResult result, Model model) { 
 		Administrator administrator = administratorService.login(form.getMailAddress(), form.getPassword());
 		if (administrator == null) {
 			model.addAttribute("errorMessage", "メールアドレスまたはパスワードが不正です。");
