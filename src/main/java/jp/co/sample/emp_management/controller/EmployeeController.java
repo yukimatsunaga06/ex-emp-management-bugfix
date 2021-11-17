@@ -10,6 +10,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+
 import jp.co.sample.emp_management.domain.Employee;
 import jp.co.sample.emp_management.form.UpdateEmployeeForm;
 import jp.co.sample.emp_management.service.EmployeeService;
@@ -27,6 +28,8 @@ public class EmployeeController {
 	@Autowired
 	private EmployeeService employeeService;
 	
+	
+	
 	/**
 	 * 使用するフォームオブジェクトをリクエストスコープに格納する.
 	 * 
@@ -36,6 +39,7 @@ public class EmployeeController {
 	public UpdateEmployeeForm setUpForm() {
 		return new UpdateEmployeeForm();
 	}
+
 
 	/////////////////////////////////////////////////////
 	// ユースケース：従業員一覧を表示する
@@ -52,6 +56,14 @@ public class EmployeeController {
 		model.addAttribute("employeeList", employeeList);
 		return "employee/list";
 	}
+	
+	@RequestMapping("/search")
+	public String search(String name,Model model) {
+		List<Employee> employees = employeeService.findByLikeName(name);
+		model.addAttribute("employees", employees);
+		return "employee/list";
+	}
+
 
 	
 	/////////////////////////////////////////////////////
