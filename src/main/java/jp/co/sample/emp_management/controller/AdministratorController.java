@@ -78,12 +78,30 @@ public class AdministratorController {
 		if(result.hasErrors()) {
 			return toInsert();
 		}
+		String mail=form.getMailAddress();
+		if(null!= administratorService.findByMailAddress(mail) ) {
+			model.addAttribute("mail","パスワードが重複してます"); //mailキーでメッセージ表示
+			
+			 return  toInsert();
+		}
+		String password=form.getPassword();
+		String passwordcheck=form.getPasswordcheck();
+		if(!passwordcheck.equals(password)) { //！文字列.equals(文字列）
+			model.addAttribute("passwordcheck","パスワードが間違っています"); //mailキーでメッセージ表示
+			
+			 return  toInsert();
+		}
+		
 		Administrator administrator = new Administrator();
 		// フォームからドメインにプロパティ値をコピー
 		BeanUtils.copyProperties(form, administrator);
 		administratorService.insert(administrator);
+	
 		return "redirect:/"; //変更前"employee/list"
 	}
+	
+	
+	
 
 	/////////////////////////////////////////////////////
 	// ユースケース：ログインをする
@@ -114,6 +132,7 @@ public class AdministratorController {
 			model.addAttribute("errorMessage", "メールアドレスまたはパスワードが不正です。");
 			return toLogin();
 		}
+		session.setAttribute("administratorName", administrator.getName());
 		return "forward:/employee/showList"; 
 	}
 	
@@ -130,5 +149,6 @@ public class AdministratorController {
 		session.invalidate();
 		return "redirect:/";
 	}
+	
 	
 }
