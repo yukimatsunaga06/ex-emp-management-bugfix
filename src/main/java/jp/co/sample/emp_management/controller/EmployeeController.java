@@ -57,12 +57,41 @@ public class EmployeeController {
 		return "employee/list";
 	}
 	
+	
+	
 	@RequestMapping("/search")
 	public String search(String name,Model model) {
-		List<Employee> employees = employeeService.findByLikeName(name);
-		model.addAttribute("employees", employees);
-		return "employee/list";
+		
+		List<Employee> employeeList = null;
+		
+		if ("".equals(name)) { // 検索ワードが空文字だった時
+			employeeList = employeeService.showList(); // 全件検索
+		} else { // 検索ワードに何か文字が入っていた時
+			employeeList = employeeService.findByLikeName(name); // 曖昧検索
+			
+			if (employeeList.isEmpty()) { // 曖昧検索の結果が０件だった時
+				employeeList = employeeService.showList(); // 全件検索
+				model.addAttribute("noName", "該当がありません");
+			}
+		}
+			
+//		List<Employee> employeeList = employeeService.findByLikeName(name);
+//		if(employeeList.isEmpty()) {
+//			employeeList=employeeService.showList();
+//			model.addAttribute("employeeList", employeeList);
+//			return "employee/list";
+//		}
+//		
+//		if(employeeList.size()==0) {
+//			employeeList=employeeService.showList();
+//			model.addAttribute("employeeList", employeeList);
+//			model.addAttribute("noName", "該当がありません");
+//			return "employee/list";
+//		}
+		model.addAttribute("employeeList", employeeList);
+		return "employee/list"; //曖昧検索
 	}
+	
 
 
 	

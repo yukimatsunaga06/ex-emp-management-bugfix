@@ -84,7 +84,7 @@ public class EmployeeRepository {
 		StringBuilder sql = new StringBuilder();
 		sql.append("SELECT id,name,image,gender,hire_date,mail_address,zip_code,address,telephone,salary,characteristics,dependents_count");
 		sql.append(" FROM employees ");
-		sql.append(" WHERE name like :name "); //%表示で名前の前後ろを曖昧検索出来る likeに近い
+		sql.append(" WHERE name like :name ORDER BY hire_date DESC"); //%表示で名前の前後ろを曖昧検索出来る likeに近い
 		SqlParameterSource param=new MapSqlParameterSource().addValue("name",'%'+name+'%');//formで貰ってきた文字列を％で先に曖昧検索
 		return jdbcTemplate.query(sql.toString(),param, EMPLOYEE_ROW_MAPPER);
 		 

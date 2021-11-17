@@ -49,12 +49,13 @@ public class EmployeeService {
 	 */
 	
 	public List<Employee> findByLikeName(String name) {
-		if (name == "") {
-			return employeeRepository.findAll();
-		} else {
-			return employeeRepository.findByLikeName(name);
-		}
+		List<Employee> employeeList=employeeRepository.findByLikeName(name);
+		return employeeList;
+		
 	}
+	
+
+
 	
 	/**
 	 * 従業員情報を更新します.
